@@ -1,7 +1,7 @@
 import numpy as np
 import help as hp
 
-parameters = {'beta': 0.984, 'sigma': 1, 'alpha': 1/3, 'delta': 0.0025, 'epsilon': 0.0001}
+parameters = {'beta': 0.984, 'sigma': 1, 'alpha': 1/3, 'delta': 0.025, 'epsilon': 0.0001}
 
 beta = parameters['beta']
 sigma = parameters['sigma']
@@ -16,7 +16,7 @@ init_capital = 0.75 * steady_state_capital
 # Make an equally spaced grid between K_1 and K_n
 K_grid = hp.make_grid(0.5 * steady_state_capital, 1.5 * steady_state_capital, 1000)
 
-init_value_function = np.zeros(1000)
+value_function = np.zeros(1000)
 
 payoff_matrix = np.full((1000, 1000), -np.inf)
 
@@ -31,5 +31,7 @@ for i in range(1000):
 
 print(payoff_matrix)
 
+initial_grid_index = hp.get_index_of_close_value(K_grid, init_capital)
 
-
+value_function_matrix = np.zeros((250, 250))
+index_vector = np.zeros(250)
