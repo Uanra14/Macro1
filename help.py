@@ -26,13 +26,21 @@ def get_index_of_close_value(array, value):
     'returns the index of the closest value in the array to the given value'
     return np.abs(array - value).argmin()
 
-def iterate(value_function_matrix, payoff_matrix, beta, epsilon, initial_grid_index, index_vector, k):
-    k += 1
+def iterate(current_value_function_matrix, prev_value_function_matrix, payoff_matrix, beta, epsilon, index_vector):
 
-    if k > 1 and np.abs(value_function_matrix[k - 1] - value_function_matrix[k - 2]) < epsilon:
+    if k > 1 and np.abs(current_value_function_matrix - prev_value_function_matrix) < epsilon:
         k = 0
-        return value_function_matrix, index_vector
+        return current_value_function_matrix, index_vector
     
-    pair = np.amax(payoff_matrix + beta * value_function_matrix), np.argmax(beta * value_function_matrix)
-    value_function_matrix[k + 1:] = pair[0]
-    index_vector[i + 1] = pair[1]
+    prev_value_function_matrix = current_value_function_matrix
+    
+    iteration_matrix = payoff_matrix + beta * current_value_function_matrix
+
+    for i in range(1000):
+        row_max = np.amax(iteration_matrix[i])
+        index_vector[i] = np.argmax(iteration_matrix[i])
+
+        for j in range(1000):
+            current_value_function_matrix[i][j] = row_max
+
+    iterate(current_value_function_matrix, prev_value_function_matrix, payoff_matrix, beta, epsilon, index_vector)

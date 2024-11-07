@@ -20,7 +20,7 @@ value_function = np.zeros(1000)
 
 payoff_matrix = np.full((1000, 1000), -np.inf)
 
-# Create a payoff matrix
+# Create a payoff matrix (Umat)
 for i in range(1000):
     for j in range(1000):
         LB = hp.get_fasible_range_of_K(K_grid[i], alpha, delta)['LB']
@@ -33,5 +33,5 @@ print(payoff_matrix)
 
 initial_grid_index = hp.get_index_of_close_value(K_grid, init_capital)
 
-value_function_matrix = np.zeros((250, 250))
-index_vector = np.zeros(250)
+value_function_matrix = np.zeros((1000, 1000))
+index_vector = np.zeros(1000)
