@@ -28,8 +28,7 @@ def get_index_of_close_value(array, value):
 
 def iterate(current_value_function_matrix, prev_value_function_matrix, payoff_matrix, beta, epsilon, index_vector):
 
-    if k > 1 and np.abs(current_value_function_matrix - prev_value_function_matrix) < epsilon:
-        k = 0
+    if np.abs(current_value_function_matrix - prev_value_function_matrix) < epsilon:
         return current_value_function_matrix, index_vector
     
     prev_value_function_matrix = current_value_function_matrix
