@@ -35,3 +35,7 @@ initial_grid_index = hp.get_index_of_close_value(K_grid, init_capital)
 
 value_function_matrix = np.zeros((1000, 1000))
 index_vector = np.zeros(1000)
+
+final_value_function, policy_function = hp.iterate(value_function_matrix, value_function_matrix, payoff_matrix, beta, epsilon, index_vector)
+
+print(final_value_function)
