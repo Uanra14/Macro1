@@ -2,7 +2,7 @@ import numpy as np
 
 def compute_steady_state_capital(beta, delta, alpha):
     'returns the steady state capital according to equation (2.12) and given production function'
-    return ((1 / beta - 1 + delta) / alpha) ** (1 / (alpha - 1))
+    return ((1 + beta * (delta - 1)) / (beta * alpha))**(1 / (alpha - 1))
 
 def make_grid(min, max, n):
     'returns a grid of n equally spaced points between min and max'

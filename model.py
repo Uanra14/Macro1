@@ -11,6 +11,8 @@ epsilon = parameters['epsilon']
 
 # Compute the steady state capital K*
 steady_state_capital = hp.compute_steady_state_capital(beta, delta, alpha)
+print(steady_state_capital)
+
 init_capital = 0.75 * steady_state_capital
 
 # Make an equally spaced grid between K_1 and K_n
@@ -29,13 +31,9 @@ for i in range(1000):
         if K_grid[j] >= LB and K_grid[j] <= UB:
             payoff_matrix[i, j] = hp.get_utility(hp.get_consumption(K_grid[i], K_grid[j], alpha, delta), sigma)
 
-print(payoff_matrix)
-
 initial_grid_index = hp.get_index_of_close_value(K_grid, init_capital)
 
 value_function_matrix = np.zeros((1000, 1000))
 index_vector = np.zeros(1000)
 
 final_value_function, policy_function = hp.iterate(value_function_matrix, value_function_matrix, payoff_matrix, beta, epsilon, index_vector)
-
-print(final_value_function)
