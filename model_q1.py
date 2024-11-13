@@ -1,12 +1,12 @@
 '''
-Filename: question.py
+Filename: model_qi.py
 
 Purpose:
     
 Date:
-    15 August 2023
+    13 November 2024
 Author:
-    Yannick van Etten 2688877  
+     
 '''
 ###########################################################
 ### Imports
@@ -26,15 +26,13 @@ def get_utility(consumption, sigma):
         return np.log(consumption)
     return (consumption ** (1 - sigma) - 1) / (1 - sigma)
 
-def iterate(V_0, pi_0, u_mat, beta, epsilon, i, n):
+def iterate(V_0, pi_0, u_mat, beta, epsilon, n):
     V_mat = np.tile(V_0, (n, 1))
     V_1 = np.max(u_mat + beta * V_mat, axis=1) 
     pi = np.argmax(u_mat + beta * V_mat, axis=1)
     if np.linalg.norm(V_1 - V_0) < epsilon:
         return V_1, pi
-    print(i, np.linalg.norm(V_1 - V_0))
-    i += 1
-    return iterate(V_1, pi_0, u_mat, beta, epsilon, i, n)
+    return iterate(V_1, pi_0, u_mat, beta, epsilon, n)
 
 def F(K, alpha):
     return K**alpha 
@@ -112,8 +110,7 @@ def main():
                 if c > 0:
                     U_mat[i, j] = np.log(c)
 
-    iteration = 0
-    V, pi = iterate(V_0, pi_0, U_mat, beta, epsilon, iteration, n)
+    V, pi = iterate(V_0, pi_0, U_mat, beta, epsilon, n)
     T = 250
     K_path = plot_capital(V, pi, K_grid, K0, T)
     C_path = plot_consumption(K_path, alpha, delta)
